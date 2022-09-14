@@ -1,0 +1,23 @@
+{% extends "base_ui/base.html" %}
+{% load static %}
+
+{% block start %}
+<head>
+  <link href="{% static 'css\style.css' %}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<div class="login">
+  <!-- <link rel="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" /> -->
+  <h1>Sign Up</h1>
+    <form method="post">
+      <input type="text" name="Username" placeholder="Username" required="required" />
+      <input type="text" name="email" placeholder="email" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+    </form>
+</div>
+
+  {% endblock %}
+
+  
