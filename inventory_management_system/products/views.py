@@ -28,16 +28,21 @@ def categoryreadpage(request):
     context = {'cate':cate}
     return render(request,'products/readcategory.html',context)
 
-def categoryupdatepage(request,id):
-    catid=category.objects.get(id=id)
-    cate= category.category_name(uuid=catid)
+def categoryupdatepage(request,uid):
+    cate=category.objects.get(uid=uid)
     context = {'cate':cate}
+    print(cate)
 
     if request.method=='POST':
-        category_name=request.POST.get('category_name')
-        cate_obj= category.objects.create(category_name=category_name)
-        cate_obj.save()
+        name= request.POST.get('category_name')
+        cat=category.objects.get(uid=uid)
+        cat.category_name=name
+        cat.save()
+        # cate_obj=category(request.POST, instance=uid)
+        # # cate_obj= category.objects.create(category_name=category_name)
+        # if cate_obj.is_valid():
+        #     cate_obj.save()
         messages.success(request, 'Category Updated Successfully')
 
     # return HttpResponse("this is product page")
-    return render(request,'products/updatecategory.html',cate)
+    return render(request,'products/updatecategory.html',context)

@@ -8,7 +8,7 @@
           <h1>All Categories </h1>
           {% for data in cate %}
              <p> {{data.category_name}}
-              {% comment %} <a href="{% url 'UpdateCategory' data.id %}" class="btn btn-primary btn-sm">Update</a> {% endcomment %}
+              <a href="{% url 'UpdateCategory' data.uid %}" class="btn btn-primary btn-sm">Update</a>
               <p>
 
           {% endfor %}
