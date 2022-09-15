@@ -1,0 +1,31 @@
+{% extends "base_ui/base.html" %}
+{% load static %}
+
+{% block start %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          <h1>All Categories </h1>
+          {% for data in cate %}
+             <p> {{data.category_name}}
+              {% comment %} <a href="{% url 'UpdateCategory' data.id %}" class="btn btn-primary btn-sm">Update</a> {% endcomment %}
+              <p>
+
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+</head>
+  {% endblock %}
+
+{% comment %} {% block title %}
+All Students
+{% endblock title %}
+
+{% block content %}
+
+
+{% endblock content %} {% endcomment %}
+
+  

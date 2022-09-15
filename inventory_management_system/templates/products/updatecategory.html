@@ -1,0 +1,26 @@
+{% extends "base_ui/base.html" %}
+{% load static %}
+
+{% block start %}
+<head>
+  <link href="{% static 'css\style.css' %}" rel="stylesheet" type="text/css" />
+
+
+
+<div class="login">
+
+  <!-- <link rel="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" /> -->
+  <h1>Add Product</h1>
+  {% csrf_token %}
+
+  {% include "base_ui/alert.html" %}
+    <form method="post">
+      <input type="text" name="category_name" placeholder="category_name" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+    </form>
+</div>
+
+</head>
+  {% endblock %}
+
+  
