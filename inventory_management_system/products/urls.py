@@ -7,8 +7,9 @@ from products import views
 # from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('product/', views.productaddpage, name="productsadd"),
-    path('category/', views.categoryreadpage, name="AllCategory"),
-    path('category/<str:uid>/', views.categoryupdatepage, name="UpdateCategory"),
-            
+    path('product/', views.addproduct, name="add_product"),
+    path('category/', views.readcategory, name="view_category"),
+    path('category/<str:uid>/', views.updatecategory, name="update_category"),
+    path('category/<str:uid>/', views.deletecategory, name="delete_category"),
+
 ]

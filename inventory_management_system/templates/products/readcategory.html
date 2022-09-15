@@ -6,26 +6,27 @@
   <div class="row">
       <div class="col-md-12">
           <h1>All Categories </h1>
+          <table>
+            
           {% for data in cate %}
-             <p> {{data.category_name}}
-              <a href="{% url 'UpdateCategory' data.uid %}" class="btn btn-primary btn-sm">Update</a>
-              <p>
+          <tr>
 
+             <td> {{data.category_name}}</td>
+             <td>
+              <a href="{% url 'update_category' data.uid %}" class="btn btn-primary btn-sm">Update</a>
+             </td>
+             <td>
+              <a href="{% url 'delete_category' data.uid %}" class="btn btn-danger btn-sm">Delete</a>
+             </td>
+             </td>
+            </tr>
           {% endfor %}
+              
+              </table>
       </div>
   </div>
 </div>
 
 </head>
   {% endblock %}
-
-{% comment %} {% block title %}
-All Students
-{% endblock title %}
-
-{% block content %}
-
-
-{% endblock content %} {% endcomment %}
-
-  
+    

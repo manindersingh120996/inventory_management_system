@@ -10,9 +10,9 @@
 <div class="login">
 
   <!-- <link rel="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" /> -->
-  <h1>Add Product</h1>
+  <h1>Update Category</h1>
 
-    <form  method="post" >
+    <form  method="post" action={% url 'update_category' cate.uid %}>
       {% csrf_token %}
       {% include "base_ui/alert.html" %}
       <input type="text" name="category_name" placeholder="{{ cate.category_name }}" required="required" />

@@ -25,6 +25,7 @@ urlpatterns = [
     path('add', include('products.urls')),
     path('read', include('products.urls')),
     path('update', include('products.urls')),
+    path('delete', include('products.urls')),
     
 ]
 

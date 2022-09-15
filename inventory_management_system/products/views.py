@@ -1,13 +1,13 @@
 from unicodedata import category
 from webbrowser import get
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from products.models import product
 from products.models import category
 
 
 # Create your views here.
-def productaddpage(request):
+def addproduct(request):
 
     if request.method=='POST':
         product_name=request.POST.get('product name')
@@ -23,26 +23,34 @@ def productaddpage(request):
 
     return render(request,'products/addproduct.html')
 
-def categoryreadpage(request):
+def readcategory(request):
     cate= category.objects.all()
     context = {'cate':cate}
     return render(request,'products/readcategory.html',context)
 
-def categoryupdatepage(request,uid):
+def updatecategory(request,uid):
     cate=category.objects.get(uid=uid)
     context = {'cate':cate}
-    print(cate)
+
 
     if request.method=='POST':
         name= request.POST.get('category_name')
         cat=category.objects.get(uid=uid)
         cat.category_name=name
         cat.save()
-        # cate_obj=category(request.POST, instance=uid)
-        # # cate_obj= category.objects.create(category_name=category_name)
-        # if cate_obj.is_valid():
-        #     cate_obj.save()
+    
         messages.success(request, 'Category Updated Successfully')
+        return redirect('view_category')
 
     # return HttpResponse("this is product page")
     return render(request,'products/updatecategory.html',context)
+
+def deletecategory(request,uid):
+    cate=category.objects.get(uid=uid)
+    context = {'cate':cate}
+    if request.method =="POST":
+        cate.delete()
+        messages.success(request, 'Category Deleted Successfully')
+        return redirect('view_category')
+    
+    return render(request,'products/deletecategory.html',context)
