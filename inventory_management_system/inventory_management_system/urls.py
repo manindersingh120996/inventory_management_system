@@ -23,12 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('product/',include('products.urls')),
-    # path('view', include('products.urls')),
-    # path('add', include('products.urls')),
-    # path('read', include('products.urls')),
-    # path('update', include('products.urls')),
-    # path('delete', include('products.urls')),
-    
+
 ]
 
 if settings.DEBUG:

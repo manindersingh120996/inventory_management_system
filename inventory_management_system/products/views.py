@@ -4,39 +4,49 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from products.models import product
 from products.models import category
-
+import os
 
 # Create your views here.
 
 def viewproduct(request):
-    pro= product.objects.all()
-    context = {'pro':pro}
-    return render(request,'products/viewproducts.html',context)
+    prod= product.objects.all()
+    context = {'prod':prod}
+    return render(request,'products/viewproduct.html',context)
 
 def listproduct(request):
-    pro= product.objects.all()
-    context = {'pro':pro}
-    return render(request,'products/viewproducts.html',context)
+    prod= product.objects.all()
+    context = {'prod':prod}
+    return render(request,'products/listproduct.html',context)
 
-def updateproduct(request):
+def updateproduct(request,uid):
     cate= category.objects.all()
-    context = {'cate':cate}
+    prod=product.objects.get(uid=uid)
+    context = {'cate':cate, 'prod':prod}
+    
     if request.method=='POST':
-        prod = product()
+        prod = product.objects.get(uid=uid)
         prod.product_name =request.POST.get('product_name')
         prod.category=category.objects.get(uid=request.POST['category'])
         prod.price = request.POST.get('price')
         prod.product_description=request.POST.get('description')
         if len(request.FILES) != 0:
-            prod.image = request.FILES['product_image']
+            if len(prod.product_image) > 0:
+                os.remove(prod.product_image.path)
+            prod.product_image = request.FILES['image']
 
         prod.save()
-        messages.success(request, "Product Added Successfully")
+        # messages.success(request, "Product Updated Successfully")
         return redirect ('list_product')
-        # prod_obj.product.product_name=product_name
-    # return HttpResponse("this is product page")
+    return render(request,'products/updateproduct.html',context)
 
-    return render(request,'products/addproduct.html',context)
+def deleteproduct(request,uid):
+    prod=product.objects.get(uid=uid)
+    context = {'prod':prod}
+    if request.method =="POST":
+        prod.delete()
+        # messages.success(request, 'Product Deleted Successfully')
+        return redirect('list_product')
+    return render(request,'products/deleteproduct.html',context)
 
 def addproduct(request):
     cate= category.objects.all()
@@ -48,14 +58,13 @@ def addproduct(request):
         prod.price = request.POST.get('price')
         prod.product_description=request.POST.get('description')
         if len(request.FILES) != 0:
-            prod.image = request.FILES['product_image']
+            prod.product_image = request.FILES['image']
 
         prod.save()
-        messages.success(request, "Product Added Successfully")
+        # messages.success(request, "Product Added Successfully")
         return redirect ('list_product')
         # prod_obj.product.product_name=product_name
     # return HttpResponse("this is product page")
-
     return render(request,'products/addproduct.html',context)
 
 
@@ -67,7 +76,6 @@ def readcategory(request):
 def updatecategory(request,uid):
     cate=category.objects.get(uid=uid)
     context = {'cate':cate}
-
 
     if request.method=='POST':
         name= request.POST.get('category_name')

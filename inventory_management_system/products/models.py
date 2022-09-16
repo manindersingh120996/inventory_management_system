@@ -3,6 +3,8 @@ from pyexpat import model
 from django.db import models
 from base.models import BaseModel
 from django.utils.text import slugify
+import datetime
+import os
 # Create your models here.
 
 class category (BaseModel):
@@ -15,7 +17,14 @@ class category (BaseModel):
 
     def __str__(self):
         return self.category_name
-    
+
+
+
+def filepath(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('product/', filename)
 
 class product (BaseModel):
     product_name= models.CharField(max_length=100)
@@ -23,7 +32,7 @@ class product (BaseModel):
     price=models.FloatField()
     product_description =models.TextField()
     slug=models.SlugField(unique=True, null=True, blank= True)
-    product_image = models.ImageField(upload_to='product', null=True, blank=True)
+    product_image = models.ImageField(upload_to=filepath, null=True, blank=True)
 
     def save(self, *args,**kwargs):
         self.slug =slugify (self.product_name)

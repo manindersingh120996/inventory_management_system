@@ -33,43 +33,47 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="https://technext.github.io/product-admin/add-product.html" class="tm-edit-product-form">
+                <form enctype="multipart/form-data" method="POST"  class="tm-edit-product-form">
+                  {% csrf_token %}
+                  {% include "base_ui/alert.html" %}
                   <div class="form-group mb-3">
                     <label for="name">Product Name</label>
-                    <input id="name" name="name" type="text" class="form-control validate" style="color: black;" required="">
+                    <input id="name" name="product_name" placeholder="{{ prod.product_name }}" type="text" class="form-control validate" style="color: black;" required="">
                   </div>
                   <div class="form-group mb-3">
-                    <label for="description">Description</label>
-                    <textarea class="form-control validate" rows="3" style="color: black;"required=""></textarea>
+                    <label for="description"  >Description</label>
+                    <textarea name="description" placeholder="{{ prod.product_description }}" class="form-control validate" rows="3" style="color: black;"required=""></textarea>
                   </div>
                   <div class="form-group mb-3">
                     <label for="number">Price</label>
-                    <input id="name" name="name" type="number" class="form-control validate" style="color: black;" required="">
+                    <input id="name" name="price" placeholder="{{ prod.price }}" type="number" class="form-control validate" style="color: black;" required="">
                   </div>
                   <div class="form-group mb-3">
                     <label for="category">Category</label>
-                    <select class="custom-select tm-select-accounts" id="category">
-                      <option selected="">Select category</option>
-                      <option value="1">Mobiles</option>
-                      <option value="2">Laptops</option>
-                      <option value="3">Televisons</option>
-                      <option value="4">Tablets</option>
+                    <select name="category" id="category"  class="custom-select tm-select-accounts">
+                      <option select="">----{{prod.category}}----</option>
+                      {% for category in cate %}
+                        <option value="{{category.uid}}">{{category.category_name}}</option>
+                      {% endfor %}
                     </select>
                   </div>
                   
-              </form></div>
+              
+              
+            </div>
               <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                 <div class="tm-product-img-dummy mx-auto">
                   <i class="bi bi-upload" style="color: black; font-size: 2rem;" onclick="document.getElementById(&#39;fileInput&#39;).click();"></i>
                 </div>
                 <div class="custom-file mt-3 mb-3">
-                  <input id="fileInput" type="file" style="display:none;">
-                  <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD PRODUCT IMAGE" onclick="document.getElementById(&#39;fileInput&#39;).click();">
+                  <input id="fileInput"  name="image" type="file" style="display:none;">
+                  <input type="button" name="image" class="btn btn-primary btn-block mx-auto" value="UPLOAD PRODUCT IMAGE" onclick="document.getElementById(&#39;fileInput&#39;).click();">
                 </div>
               </div>
               <div class="col-12">
-                <a href="productlists.html"><button type="submit" class="btn btn-primary btn-block text-uppercase">Update Product Now</button></a>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product</button>
               </div>
+            </form>
             
             </div>
           </div>
