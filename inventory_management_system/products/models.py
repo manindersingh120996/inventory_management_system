@@ -23,7 +23,7 @@ class product (BaseModel):
     price=models.FloatField()
     product_description =models.TextField()
     slug=models.SlugField(unique=True, null=True, blank= True)
-    product_image = models.ImageField(upload_to='product')
+    product_image = models.ImageField(upload_to='product', null=True, blank=True)
 
     def save(self, *args,**kwargs):
         self.slug =slugify (self.product_name)

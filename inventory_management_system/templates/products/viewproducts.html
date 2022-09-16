@@ -1,0 +1,114 @@
+
+{% load static %}
+
+  
+
+<!DOCTYPE html>
+<!--
+	ustora by freshdesignweb.com
+	Twitter: https://twitter.com/freshdesignweb
+	URL: https://www.freshdesignweb.com/ustora/
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products</title>
+
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}"  type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}"  type="text/css"/>
+
+  </head>
+  <body>
+   
+    <div class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="user-menu">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-user"></i>My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End header area -->
+    
+    <div class="site-branding-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="logo">
+                        <h1><a href="./"><img src="{% static 'image/logo.png' width='20' height='20' %}"></a></h1>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="shopping-item">
+                        <a href="cart.html">Cart<i class="fa fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End site branding area -->
+    
+    <form style="float: right; margin-right:100px;" action="products.html">
+        <input type="text" placeholder="Search" style="padding: 11px; ">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active"><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>  
+            </div>
+        </div>
+    </div> <!-- End mainmenu area -->
+
+    {% for data in pro %}
+    <div class="promo-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6" style="text-align: center; margin-top: 50px;">
+                    <div class="card" style="color: black;">
+                        {% if data.product_image %}
+                        <img src="{{data.product_image.url }}" alt="mobile" style="transform: scale(1.5); width:500px; height:auto;"><br><br>
+                        {% else %}
+                        <img src="{% static 'image/mob.png' %}" alt="mobile" style=" height:100px; object-fit: cover;"><br><br>
+                        {% endif %}
+                        
+                        <a href="#"><h3 style="color: black;">{{data.product_name}}</h3></a>
+                        <p class="price" style="color: black;">{{data.price}}</p>
+                        <button class="button">+</button>
+                        <button class="button">-</button>
+                        <input type="number" class="input" name="quantity" value="1" min="1" />
+                        <button style="padding: 0px 81px; margin-top: 0px;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End promo area -->
+    {% endfor %}
+
+
+  </body>
+</html>
+
+  
